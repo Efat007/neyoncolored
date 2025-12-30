@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Routine</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:
+    radial-gradient(circle at 80% 70%, #3a0b4a 0%, transparent 50%),
+    linear-gradient(180deg,#061722 0%, #0b2b3a 45%, #05111a 100%);
+  color:#eaf6ff;
+  min-height:100vh;
+}
+
+.page{animation:slideIn .35s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1}}
+
+.homeBtn{
+  position:fixed;top:12px;right:12px;
+  width:45px;height:45px;border-radius:50%;
+  background:#00c6ff;display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:white;text-decoration:none;
+  box-shadow:0 0 12px rgba(0,198,255,.8),0 6px 18px rgba(0,0,0,.8);z-index:100;
+}
+
+.logo{
+  width:45px;
+  display:block;
+  margin:20px auto 10px;
+  filter:drop-shadow(0 0 6px rgba(0,198,255,.6));
+}
+
+h2{
+  text-align:center;
+  font-size:34px;
+  color:#00e5ff;
+  margin:10px 0 4px;
+  text-shadow:0 0 12px rgba(0,229,255,.7);
+}
+
+.dayTitle{text-align:center;font-size:20px;color:#bcdcff}
+.roomTitle{text-align:center;font-size:16px;color:#8fb6d8}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:10px 20px 15px;
+}
+
+.nav button{
+  padding:10px 18px;
+  border:none;
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,0)),
+    linear-gradient(135deg,#0d2b3d,#162b3f);
+  color:#eaf6ff;
+  font-size:15px;
+  font-weight:bold;
+  min-width:100px;
+  border:1px solid rgba(0,198,255,.3);
+  box-shadow:0 8px 20px rgba(0,0,0,.7), inset 0 0 10px rgba(0,198,255,.05);
+}
+
+.container{
+  background:rgba(10,25,40,.85);
+  margin:20px;
+  border-radius:20px;
+  padding:20px;
+  border:1px solid rgba(0,198,255,.2);
+  box-shadow:0 15px 40px rgba(0,0,0,.8);
+}
+
+.section-title{text-align:center;opacity:.8;color:#8fb6d8}
+
+.card{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,0)),
+    linear-gradient(135deg,#0d2b3d,#162b3f);
+  padding:18px;
+  border-radius:15px;
+  margin:10px 0;
+  font-size:18px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  cursor:pointer;
+  border:1px solid rgba(0,198,255,.25);
+  box-shadow:0 8px 25px rgba(0,0,0,.7);
+}
+
+.lab{
+  background:linear-gradient(135deg,#5b1d8a,#2b0a44);
+  color:#fff;
+  border:1px solid rgba(180,100,255,.6);
+  box-shadow:0 8px 22px rgba(0,0,0,.7);
+}
+
+.teacherBox{
+  width:100%;
+  margin-top:12px;
+  background:#071a2a;
+  padding:15px;
+  border-radius:12px;
+  font-size:16px;
+  line-height:1.6;
+  border:1px solid rgba(0,198,255,.2);
+  animation:slideDown .3s ease;
+}
+
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1}}
+
+.credit{
+  text-align:center;
+  font-size:13px;
+  color:#8fb6d8;
+  margin-bottom:15px;
+}
+
+.back{
+  display:block;
+  width:80%;
+  margin:40px auto 80px;
+  padding:16px;
+  background:#1e88ff;
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:bold;
+  text-align:center;
+  box-shadow:0 6px 15px rgba(0,0,0,.6);
+}
+
+</style>
+</head>
+
+<body>
+<a href="index.html" class="homeBtn">🏠</a>
+
+<div class="page">
+
+<img src="cuet.png" class="logo">
+<h2 id="secTitle"></h2>
+<div class="dayTitle" id="dayTitle"></div>
+<div class="roomTitle" id="roomTitle"></div>
+
+<div class="nav">
+  <button onclick="prevDay()">⬅ Previous</button>
+  <button onclick="nextDay()">Next ➡</button>
+</div>
+
+<div class="container">
+  <div class="section-title">📘 Classes</div>
+  <div id="classes"></div>
+  <div class="section-title">🧪 Labs</div>
+  <div id="labs"></div>
+</div>
+
+<a class="back" href="javascript:history.back()">⬅ Back</a>
+<div class="credit">Created by Emtiaz Mazumder Efat — C2 CR</div>
+
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const sec=params.get("sec");
+const day=params.get("day");
+const order = ["sun","mon","tue","wed","thu","fri","sat"];
+
+const dayNames = {
+  sun: "Sunday",
+  mon: "Monday",
+  tue: "Tuesday",
+  wed: "Wednesday",
+  thu: "Thursday",
+  fri: "Friday",
+  sat: "Saturday"
+};
+
+secTitle.innerText=sec;
+dayTitle.innerText=dayNames[day];
+
+function nextDay(){location=`day.html?sec=${sec}&day=${order[(order.indexOf(day)+1)%5]}`}
+function prevDay(){location=`day.html?sec=${sec}&day=${order[(order.indexOf(day)+4)%5]}`}
+
+const teachers={
+"EEE-121":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed",
+"EEE-122":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed, Mr. Kawshik Nath",
+"EEE-123":"Prof. Dr. Mehdi Hasan Chowdhury, Mr. Md. Manjurul Gani",
+"EEE-124":"Prof. Dr. Mehdi Hasan Chowdhury, Mr. Md. Manjurul Gani, Mr. Tasreek Ahmed",
+"CHEM-121":"Prof. Dr. A. H. Rashadul Hossain, Prof. Dr. M. K. Mohammad Ziaul Hyder",
+"CHEM-122":"Prof. Dr. Ranjit Kumar Sutradhar, Prof. Dr. A. H. Rashadul Hossain, Prof. Dr. Rajia Sultana, Prof. Dr. Yunus Ahmed, Dr. Arup Kumar Roy",
+"MATH-125":"Prof. Dr. Md. Delowar Hossain, Prof. Dr. Md. Golam Hafez",
+"ME-122":"Prof. Dr. Md. Abu Mowazzem Hossain, Mr. Radheshyam Nath Jisu, Mr. Redoy Masum Meraz",
+"HUM-123":"Prof. Dr. Mohammad Kamrul Hassan, Ms. Nahida Sultana",
+"HUM-124":"Prof. Dr. Mohammad Kamrul Hassan, Ms. Nahida Sultana, Mr. Syed Mohammad Mashiur Rahman"
+};
+
+function to12h(t){let[h,m]=t.split(":");h=parseInt(h);let a=h>=12?"PM":"AM";h=h%12||12;return h+":"+m+" "+a}
+
+/* ROUTINE */
+const routine = {
+
+"A1":{
+  "sun":[{sub:"EEE-124",time:"08:10"},{sub:"EEE-122",time:"11:00"}],
+  "mon":[{sub:"HUM-123",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"HUM-124",time:"14:30"}],
+  "tue":[{sub:"HUM-123",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"CHEM-122",time:"14:30"}],
+  "wed":[{sub:"EEE-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"HUM-123",time:"11:50"},{sub:"EEE-123",time:"12:40"},{sub:"ME-122",time:"14:30"}],
+  "thu":[{sub:"CHEM-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"EEE-121",time:"11:00"}]
+},
+
+"A2":{
+  "sun":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-122",time:"14:30"}],
+  "mon":[{sub:"HUM-123",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"HUM-124",time:"14:30"}],
+  "tue":[{sub:"HUM-123",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"EEE-122",time:"14:30"}],
+  "wed":[{sub:"EEE-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"HUM-123",time:"11:50"},{sub:"EEE-123",time:"12:40"},{sub:"ME-122",time:"14:30"}],
+  "thu":[{sub:"CHEM-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"EEE-121",time:"11:00"}]
+},
+
+"B1":{
+  "sun":[{sub:"EEE-122",time:"08:10"},{sub:"CHEM-122",time:"11:00"}],
+  "mon":[{sub:"EEE-123",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"ME-122",time:"14:30"}],
+  "tue":[{sub:"MATH-125",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"EEE-121",time:"11:00"},{sub:"CHEM-121",time:"11:50"},{sub:"EEE-123",time:"12:40"}],
+  "wed":[{sub:"MATH-125",time:"09:00"},{sub:"CHEM-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
+  "thu":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-121",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"EEE-121",time:"12:40"}]
+},
+
+"B2":{
+  "sun":[{sub:"EEE-122",time:"14:30"}],
+  "mon":[{sub:"EEE-123",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"ME-122",time:"14:30"},{sub:"CHEM-122",time:"11:00"}],
+  "tue":[{sub:"MATH-125",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"EEE-121",time:"11:00"},{sub:"CHEM-121",time:"11:50"},{sub:"EEE-123",time:"12:40"}],
+  "wed":[{sub:"MATH-125",time:"09:00"},{sub:"CHEM-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
+  "thu":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-121",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"EEE-121",time:"12:40"}]
+},
+
+"C1":{
+  "sun":[{sub:"EEE-124",time:"11:00"},{sub:"ME-122",time:"14:30"}],
+  "mon":[{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"CHEM-122",time:"14:30"}],
+  "tue":[{sub:"EEE-123",time:"09:00"},{sub:"EEE-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"CHEM-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
+  "wed":[{sub:"CHEM-121",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"},{sub:"HUM-123",time:"12:40"},{sub:"EEE-122",time:"14:30"}],
+  "thu":[{sub:"CHEM-121",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"}]
+},
+
+"C2":{
+  "sun":[{sub:"EEE-124",time:"11:00"},{sub:"ME-122",time:"14:30"}],
+  "mon":[{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-122",time:"14:30"}],
+  "tue":[{sub:"EEE-123",time:"09:00"},{sub:"EEE-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"CHEM-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
+  "wed":[{sub:"CHEM-121",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"},{sub:"HUM-123",time:"12:40"},{sub:"CHEM-122",time:"14:30"}],
+  "thu":[{sub:"CHEM-121",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"}]
+}
+
+};
+const classes = document.getElementById("classes");
+const labs = document.getElementById("labs");
+
+/* Clear previous day data */
+classes.innerHTML = "";
+labs.innerHTML = "";
+
+const data = (routine[sec] && routine[sec][day]) || [];
+
+data.forEach(x=>{
+  const isLab = parseInt(x.sub.split("-")[1]) % 2 === 0;
+  const d = document.createElement("div");
+
+  d.className = "card " + (isLab ? "lab" : "");
+  d.innerHTML = `<span>${x.sub}</span><span>${to12h(x.time)}</span>`;
+  d.onclick = () => toggle(d, x.sub);
+
+  if(isLab) labs.appendChild(d);
+  else classes.appendChild(d);
+});
+
+/* If no items exist */
+if(classes.children.length === 0){
+  classes.innerHTML = "<div class='card'>No Class</div>";
+}
+
+if(labs.children.length === 0){
+  labs.innerHTML = "<div class='card lab'>No Lab</div>";
+}
+
+
+  let d=document.createElement("div");
+  d.className="card "+(parseInt(x.sub.split("-")[1])%2==0?"lab":"");
+  d.innerHTML=`<span>${x.sub}</span><span>${to12h(x.time)}</span>`;
+  d.onclick=()=>toggle(d,x.sub);
+  (d.classList.contains("lab")?labs:classes).appendChild(d);
+
+
+function toggle(card,sub){
+  let old=document.querySelector(".teacherBox");
+  if(old&&old.parentNode===card){old.remove();return;}
+  if(old)old.remove();
+  let b=document.createElement("div");
+  b.className="teacherBox";
+  b.innerHTML=(teachers[sub]||"Teacher not found").split(",").map(x=>"• "+x.trim()).join("<br>");
+  card.appendChild(b);
+}
+
+
+</script>
+
+</body>
+</html>

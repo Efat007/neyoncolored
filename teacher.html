@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(to bottom,#0f2027,#203a43,#2c5364);
+  color:white;
+  min-height:100vh;
+}
+
+/* HOME BUTTON */
+.homeBtn{
+  position:fixed;
+  top:12px;
+  right:12px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#00c6ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,0.6);
+  z-index:100;
+}
+
+/* LOGO */
+.logo{
+  width:45px;
+  display:block;
+  margin:25px auto 15px;
+}
+
+/* MAIN WRAPPER */
+.wrapper{
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+/* CARD */
+.card{
+  background:#121212;
+  padding:30px;
+  border-radius:20px;
+  width:100%;
+  max-width:400px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* SUBJECT */
+h1{
+  margin-bottom:20px;
+  font-size:28px;
+  color:#f7254a;
+  letter-spacing:1px;
+}
+
+/* TEACHER BOX */
+.teacher{
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  padding:20px;
+  border-radius:15px;
+  font-size:18px;
+  line-height:1.6;
+  text-align:left;
+}
+
+/* BACK */
+.back{
+  display:block;
+  margin-top:25px;
+  padding:14px;
+  background:#ff2f6d;
+  border-radius:25px;
+  text-decoration:none;
+  color:white;
+  font-size:18px;
+  text-align:center;
+}
+
+/* CREDIT */
+.credit{
+  text-align:center;
+  font-size:13px;
+  color:#b8c7d9;
+  opacity:0.9;
+  margin:25px 0 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<img src="cuet.png" class="logo">
+<a href="index.html" class="homeBtn">🏠</a>
+
+<div class="wrapper">
+  <div class="card">
+    <h1 id="sub"></h1>
+    <div class="teacher" id="tname"></div>
+    <a class="back" href="javascript:history.back()">⬅ Back</a>
+  </div>
+</div>
+
+<div class="credit">
+Created by Emtiaz Mazumder Efat — C2 CR
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const sub = params.get("sub");
+document.getElementById("sub").innerText = sub;
+
+const teachers = {
+  "EEE-121":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed",
+  "EEE-122":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed, Mr. Kawshik Nath",
+  "EEE-123":"Prof. Dr. Mehdi Hasan Chowdhury, Mr. Md. Manjurul Gani",
+  "EEE-124":"Prof. Dr. Mehdi Hasan Chowdhury, Mr. Md. Manjurul Gani, Mr. Tasreek Ahmed",
+  "CHEM-121":"Prof. Dr. A. H. Rashadul Hossain, Prof. Dr. M. K. Mohammad Ziaul Hyder",
+  "CHEM-122":"Prof. Dr. Ranjit Kumar Sutradhar, Prof. Dr. A. H. Rashadul Hossain, Prof. Dr. Rajia Sultana, Prof. Dr. Yunus Ahmed, Dr. Arup Kumar Roy",
+  "MATH-125":"Prof. Dr. Md. Delowar Hossain, Prof. Dr. Md. Golam Hafez",
+  "ME-122":"Prof. Dr. Md. Abu Mowazzem Hossain, Mr. Radheshyam Nath Jisu, Mr. Redoy Masum Meraz",
+  "HUM-123":"Prof. Dr. Mohammad Kamrul Hassan, Ms. Nahida Sultana",
+  "HUM-124":"Prof. Dr. Mohammad Kamrul Hassan, Ms. Nahida Sultana, Mr. Syed Mohammad Mashiur Rahman"
+};
+
+const t = teachers[sub] || "Teacher not found";
+
+if(t === "Teacher not found"){
+  document.getElementById("tname").innerText = t;
+}else{
+  document.getElementById("tname").innerHTML =
+    t.split(",").map(x => "• " + x.trim()).join("<br>");
+}
+</script>
+
+</body>
+</html>

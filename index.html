@@ -103,12 +103,13 @@ body{
 <div class="subTitle">Select Your Section</div>
 
 <div class="grid">
-  <a class="btn" href="week.html?sec=A1" onclick="localStorage.logoPos='left'">A1</a>
-  <a class="btn" href="week.html?sec=A2" onclick="localStorage.logoPos='left'">A2</a>
-  <a class="btn" href="week.html?sec=B1" onclick="localStorage.logoPos='left'">B1</a>
-  <a class="btn" href="week.html?sec=B2" onclick="localStorage.logoPos='left'">B2</a>
-  <a class="btn" href="week.html?sec=C1" onclick="localStorage.logoPos='left'">C1</a>
-  <a class="btn" href="week.html?sec=C2" onclick="localStorage.logoPos='left'">C2</a>
+<a class="btn" href="week.html?sec=A1&from=index">A1</a>
+<a class="btn" href="week.html?sec=A2&from=index">A2</a>
+<a class="btn" href="week.html?sec=B1&from=index">B1</a>
+<a class="btn" href="week.html?sec=B2&from=index">B2</a>
+<a class="btn" href="week.html?sec=C1&from=index">C1</a>
+<a class="btn" href="week.html?sec=C2&from=index">C2</a>
+
 </div>
 
 <div class="credit">
@@ -118,15 +119,7 @@ Created by Emtiaz Mazumder Efat — C2 CR
 <script>
 const logo = document.getElementById("logo");
 
-if(localStorage.logoPos==="left"){
-  logo.classList.add("logoFromLeft");
-  requestAnimationFrame(()=>{
-    requestAnimationFrame(()=>{
-      logo.classList.remove("logoFromLeft");
-      localStorage.logoPos="center";
-    });
-  });
-}
+
 </script>
 
 </body>

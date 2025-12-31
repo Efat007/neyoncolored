@@ -135,23 +135,16 @@ body{
   text-align:center;
   box-shadow:0 6px 15px rgba(0,0,0,.6);
 }
-
-
 </style>
 </head>
 
 <body>
-  <img src="cuet.png" class="logo">
-
-  <a href="index.html" class="homeBtn">🏠</a>
-
-
-
+<img src="cuet.png" class="logo">
+<a href="index.html" class="homeBtn">🏠</a>
 
 <div class="secTitle" id="secTitle"></div>
 <div class="dayTitle">Select Day</div>
 
-<!-- 🔥 TODAY / TOMORROW -->
 <div class="quick">
   <button class="quickBtn" onclick="goToday()">📖 Today</button>
   <button class="quickBtn tomorrow" onclick="goTomorrow()">⏭ Tomorrow</button>
@@ -165,7 +158,7 @@ body{
   <div class="day" data-day="thu">Thursday</div>
 </div>
 
-<a class="back" href="index.html">⬅ Change Section</a>
+<a class="back" href="javascript:goBack()">⬅ Back</a>
 
 <div class="credit">
 Created by Emtiaz Mazumder Efat — C2 CR
@@ -177,25 +170,15 @@ const sec = params.get("sec");
 
 document.getElementById("secTitle").innerText = sec;
 
+/* DAY CLICK */
 document.querySelectorAll(".day").forEach(btn=>{
   btn.onclick = ()=>{
     const day = btn.getAttribute("data-day");
-    window.location.href = `day.html?sec=${sec}&day=${day}`;
+    window.location.href = `day.html?sec=${sec}&day=${day}&from=week`;
   };
 });
 
-// 🔥 FULL DAY NAMES
-const dayMap = {
-  sun: "Sunday",
-  mon: "Monday",
-  tue: "Tuesday",
-  wed: "Wednesday",
-  thu: "Thursday",
-  fri: "Friday",
-  sat: "Saturday"
-};
-
-// 🔥 AUTO DAY SYSTEM
+/* AUTO DAY SYSTEM */
 function getDayKey(offset=0){
   const days=["sun","mon","tue","wed","thu","fri","sat"];
   const d = new Date();
@@ -205,16 +188,19 @@ function getDayKey(offset=0){
 
 function goToday(){
   const day = getDayKey(0);
-  window.location = `day.html?sec=${sec}&day=${day}`;
+  window.location.href = `day.html?sec=${sec}&day=${day}&from=week`;
 }
 
 function goTomorrow(){
   const day = getDayKey(1);
-  window.location = `day.html?sec=${sec}&day=${day}`;
+  window.location.href = `day.html?sec=${sec}&day=${day}&from=week`;
+}
+
+/* BACK BUTTON */
+function goBack(){
+  window.location.href = "index.html";
 }
 </script>
 
-
 </body>
 </html>
-

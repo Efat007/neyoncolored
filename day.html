@@ -137,7 +137,7 @@ h2{
   <div id="labs"></div>
 </div>
 
-<a class="back" href="javascript:history.back()">⬅ Back</a>
+<a class="back" href="javascript:goBack()">⬅ Back</a>
 </div>
 
 <script>
@@ -160,11 +160,24 @@ const roomMap={
   thu:{A:"2305",B:"2307",C:"2308"}
 };
 
-roomTitle.innerText=roomMap[day]?.[group] ? "Room: "+roomMap[day][group] : "";
+roomTitle.innerText = roomMap[day]?.[group]
+  ? "Room: " + roomMap[day][group]
+  : "";
 
-function nextDay(){location=`day.html?sec=${sec}&day=${order[(order.indexOf(day)+1)%5]}`}
-function prevDay(){location=`day.html?sec=${sec}&day=${order[(order.indexOf(day)+4)%5]}`}
+/* FIXED PREV / NEXT (keeps from=week) */
+function nextDay(){
+  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+1)%5]}&from=week`;
+}
+function prevDay(){
+  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+4)%5]}&from=week`;
+}
 
+/* BACK → WEEK */
+function goBack(){
+  location = `week.html?sec=${sec}&from=index`;
+}
+
+/* TEACHERS */
 const teachers={
 "EEE-121":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed",
 "EEE-122":"Prof. Dr. Rashed Md. Murad Hasan, Mr. Ajmal Ahmed, Mr. Kawshik Nath",
@@ -230,6 +243,7 @@ const routine = {
 
 };
 
+/* TIME FORMAT */
 function to12h(t){
   let[h,m]=t.split(":");
   h=parseInt(h);let a=h>=12?"PM":"AM";

@@ -87,6 +87,21 @@ h2{
   box-shadow:0 8px 25px rgba(0,0,0,.7);
 }
 
+/* Red-to-Dark Gradient Weekend Card (No Border) */
+.weekend-card {
+  background: linear-gradient(90deg, #660000 0%, #003e79 100%) !important;
+  border: none !important; 
+  justify-content: center !important;
+  align-items: center;
+  font-weight: bold;
+  color: #eaf6ff;
+  padding: 22px;
+  border-radius: 15px;
+  margin: 10px 0;
+  display: flex;
+  box-shadow: 0 8px 25px rgba(0,0,0,.7);
+}
+
 .lab{
   background:linear-gradient(135deg,#5b1d8a,#2b0a44);
 }
@@ -146,8 +161,12 @@ const sec=params.get("sec");
 const day=params.get("day");
 const group=sec.charAt(0);
 
-const order=["sun","mon","tue","wed","thu"];
-const dayNames={sun:"Sunday",mon:"Monday",tue:"Tuesday",wed:"Wednesday",thu:"Thursday"};
+// Included full week for proper navigation
+const order=["sun","mon","tue","wed","thu","fri","sat"];
+const dayNames={
+  sun:"Sunday",mon:"Monday",tue:"Tuesday",wed:"Wednesday",
+  thu:"Thursday",fri:"Friday",sat:"Saturday"
+};
 
 secTitle.innerText=sec;
 dayTitle.innerText=dayNames[day];
@@ -164,12 +183,12 @@ roomTitle.innerText = roomMap[day]?.[group]
   ? "Room: " + roomMap[day][group]
   : "";
 
-/* FIXED PREV / NEXT (keeps from=week) */
+/* FIXED PREV / NEXT */
 function nextDay(){
-  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+1)%5]}&from=week`;
+  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+1)%7]}&from=week`;
 }
 function prevDay(){
-  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+4)%5]}&from=week`;
+  location = `day.html?sec=${sec}&day=${order[(order.indexOf(day)+6)%7]}&from=week`;
 }
 
 /* BACK → WEEK */
@@ -192,7 +211,6 @@ const teachers={
 };
 
 const routine = {
-
 "A1":{
   "sun":[{sub:"EEE-124",time:"08:10"},{sub:"EEE-122",time:"11:00"}],
   "mon":[{sub:"HUM-123",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"HUM-124",time:"14:30"}],
@@ -200,7 +218,6 @@ const routine = {
   "wed":[{sub:"EEE-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"HUM-123",time:"11:50"},{sub:"EEE-123",time:"12:40"},{sub:"ME-122",time:"14:30"}],
   "thu":[{sub:"CHEM-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"EEE-121",time:"11:00"}]
 },
-
 "A2":{
   "sun":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-122",time:"14:30"}],
   "mon":[{sub:"HUM-123",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"HUM-124",time:"14:30"}],
@@ -208,7 +225,6 @@ const routine = {
   "wed":[{sub:"EEE-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"CHEM-121",time:"11:00"},{sub:"HUM-123",time:"11:50"},{sub:"EEE-123",time:"12:40"},{sub:"ME-122",time:"14:30"}],
   "thu":[{sub:"CHEM-121",time:"09:00"},{sub:"MATH-125",time:"09:50"},{sub:"EEE-121",time:"11:00"}]
 },
-
 "B1":{
   "sun":[{sub:"EEE-122",time:"08:10"},{sub:"CHEM-122",time:"11:00"}],
   "mon":[{sub:"EEE-123",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"ME-122",time:"14:30"}],
@@ -216,7 +232,6 @@ const routine = {
   "wed":[{sub:"MATH-125",time:"09:00"},{sub:"CHEM-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
   "thu":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-121",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"EEE-121",time:"12:40"}]
 },
-
 "B2":{
   "sun":[{sub:"EEE-122",time:"14:30"}],
   "mon":[{sub:"EEE-123",time:"09:00"},{sub:"HUM-123",time:"09:50"},{sub:"ME-122",time:"14:30"},{sub:"CHEM-122",time:"11:00"}],
@@ -224,7 +239,6 @@ const routine = {
   "wed":[{sub:"MATH-125",time:"09:00"},{sub:"CHEM-121",time:"09:50"},{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-121",time:"12:40"},{sub:"HUM-124",time:"14:30"}],
   "thu":[{sub:"EEE-124",time:"08:10"},{sub:"CHEM-121",time:"11:00"},{sub:"MATH-125",time:"11:50"},{sub:"EEE-121",time:"12:40"}]
 },
-
 "C1":{
   "sun":[{sub:"EEE-124",time:"11:00"},{sub:"ME-122",time:"14:30"}],
   "mon":[{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"CHEM-122",time:"14:30"}],
@@ -232,7 +246,6 @@ const routine = {
   "wed":[{sub:"CHEM-121",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"},{sub:"HUM-123",time:"12:40"},{sub:"EEE-122",time:"14:30"}],
   "thu":[{sub:"CHEM-121",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"}]
 },
-
 "C2":{
   "sun":[{sub:"EEE-124",time:"11:00"},{sub:"ME-122",time:"14:30"}],
   "mon":[{sub:"HUM-123",time:"11:00"},{sub:"EEE-123",time:"11:50"},{sub:"EEE-122",time:"14:30"}],
@@ -240,7 +253,6 @@ const routine = {
   "wed":[{sub:"CHEM-121",time:"09:00"},{sub:"EEE-123",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"},{sub:"HUM-123",time:"12:40"},{sub:"CHEM-122",time:"14:30"}],
   "thu":[{sub:"CHEM-121",time:"09:50"},{sub:"MATH-125",time:"11:00"},{sub:"EEE-121",time:"11:50"}]
 }
-
 };
 
 /* TIME FORMAT */
@@ -253,14 +265,24 @@ function to12h(t){
 const classes=document.getElementById("classes");
 const labs=document.getElementById("labs");
 
-(routine[sec][day]||[]).forEach(x=>{
-  const isLab=parseInt(x.sub.split("-")[1])%2===0;
-  const d=document.createElement("div");
-  d.className="card "+(isLab?"lab":"");
-  d.innerHTML=`<span>${x.sub}</span><span>${to12h(x.time)}</span>`;
-  d.onclick=()=>toggle(d,x.sub);
-  (isLab?labs:classes).appendChild(d);
-});
+/* WEEKEND LOGIC FOR FRI/SAT */
+if (day === "fri" || day === "sat") {
+  classes.innerHTML = `
+    <div class="weekend-card">
+      <span style="margin-right:10px;">🎉</span>
+      Weekend - No Classes
+    </div>`;
+  labs.innerHTML = `<div style="text-align:center; opacity:0.6; margin-top:10px;">No Labs Scheduled</div>`;
+} else {
+  (routine[sec][day]||[]).forEach(x=>{
+    const isLab=parseInt(x.sub.split("-")[1])%2===0;
+    const d=document.createElement("div");
+    d.className="card "+(isLab?"lab":"");
+    d.innerHTML=`<span>${x.sub}</span><span>${to12h(x.time)}</span>`;
+    d.onclick=()=>toggle(d,x.sub);
+    (isLab?labs:classes).appendChild(d);
+  });
+}
 
 function toggle(card,sub){
   let old=document.querySelector(".teacherBox");
